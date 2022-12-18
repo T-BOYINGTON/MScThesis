@@ -1,0 +1,72 @@
+﻿Need,Site_Name,type,Trap_Name,Lat,Lon,Total_Inv,Species_P_Trap,Species_P_Site,Total_Inv_P_Site,Notes,Barb_passes,PIP_passes,PYG_passes,NOC_passes,Plecotus_passes,Nath_passes,Total_Bats,Other_Bats,OID,Barb_Present,Bat_Total
+1,Gantry1,Established Gantry,G1N,52.694596,1.179446,2,2,4,,Bee and mimic (see pic) -- Bee was rescued after 20 mins - was buzzing loudly until it realised I was helping and afterwards was very politely buzzing around in thanks and showed intrest as I saved the other thing that looked like a bee - some kind of hoverfly perhaps?,3,70,34,11,8,0,126,,1,1,1
+1,Gantry1,Established Gantry,G1S,52.694316,1.179704,5,1,4,,,2,50,25,11,5,1,94,,2,1,1
+1,Gantry1,Established Gantry,G1M,52.695083,1.178786,2,2,4,,spider (see pic),,,,,,,,,3,,
+1,Random,Random,G1RS,52.693965,1.178003,9,2,,,beetles - see pic - smaller could be same species of adult,0,5,2,5,15,0,27,,4,0,1
+1,Gantry2,Established Gantry,G2N,52.684783,1.246743,2,2,4,,1 red mite,27,187,8,6,18,2,248,,5,1,1
+1,Gantry2,Established Gantry,G2S,52.68437,1.246767,7,2,4,,6 red mites,26,126,6,3,19,0,180,,6,1,1
+1,Gantry2,Established Gantry,G2M,52.685287,1.246705,7,4,4,,inc 3 flies/mosquitoes? Spp id needed,,,,,,,,,7,,
+1,Random,Random,G2R,52.684574,1.247429,4,4,,,,1,27,0,0,0,2,30,,8,1,1
+1,GreenBridge,Green Bridge,GBN,52.696969,1.202132,6,2,5,,,7,355,29,4,4,0,399,,9,1,1
+1,GreenBridge,Green Bridge,GBS,52.694784,1.203833,2,2,5,,,2,72,26,9,12,0,121,,10,1,1
+1,GreenBridge,Green Bridge,GBMN,52.69801,1.20101,3,2,5,,mothwalk north,2,344,51,2,1,0,400,,11,1,1
+1,GreenBridge,Green Bridge,GBh,52.695984,1.202926,3,3,5,,"Instead of a random point, GBh was placed halfway across the bridge. In addition to the insects counted here, 1 wasp was caught - still alive at retrival the wasp was rescued with patience and a bic pen",2,42,1,0,2,0,47,,12,1,1
+1,Gantry3,Established Gantry,G3N,52.67996,1.300318,2,1,6,,2 aphids,2,44,1,4,3,3,57,,13,1,1
+1,Gantry3,Established Gantry,G3S,52.679404,1.300274,6,3,6,,"1 micromoth, 2 flies",20,930,80,2,8,0,1040,,14,1,1
+1,Gantry3,Established Gantry,G3M,52.68033,1.300435,9,5,6,,1 aphid,,,,,,,,,15,,
+1,Random,Random,G3R,52.678932,1.302055,8,6,,,"1 redmite, 1?",0,19,8,42,1,0,70,,16,0,1
+1,Gantry4,Established Gantry,G4N,52.680054,1.338297,6,3,4,,,4,432,24,47,2,0,509,,17,1,1
+1,Gantry4,Established Gantry,G4S,52.679589,1.338147,8,1,4,,,9,165,36,96,9,1,316,,18,1,1
+1,Gantry4,Established Gantry,G4M,52.679326,1.338244,14,3,4,,,,,,,,,,,19,,
+1,Random,Random,G4R,52.679517,1.341017,2,1,,,,0,11,6,58,0,0,75,,20,0,1
+1,Gantry5,Established Gantry,G5N,52.678295,1.345105,5,4,5,,"1 red mite, 1 MOTH, 1 large bottlefly",0,4,2,19,0,0,25,,21,0,1
+1,Gantry5,Established Gantry,G5S,52.677911,1.345099,7,3,5,,"1 large bottlefly, 1 mosquito",0,36,27,60,0,2,125,,22,0,1
+1,Gantry5,Established Gantry,G5M,52.678909,1.34482,5,3,5,,3 red mites,,,,,,,,,23,,
+1,Random,Random,G5RN,52.677917,1.346714,1,1,,,,1,51,10,26,4,7,99,,24,1,1
+1,Random,Random,G5RS,52.67752,1.346505,1,1,,,1 large (fly/mosq)?,0,45,8,33,2,5,93,,25,0,1
+1,Gantry6,Established Gantry,G6N,52.646901,1.381078,3,3,3,,,0,67,12,17,3,0,99,,26,0,1
+1,Gantry6,Established Gantry,G6S,52.647161,1.380547,3,2,3,,,5,72,8,19,0,2,106,,27,1,1
+1,Gantry6,Established Gantry,G6M,52.646722,1.381481,1,1,3,,,,,,,,,,,28,,
+1,Random,Random,G6R,52.646016,1.380226,3,3,,,,0,5,2,1,0,0,8,,29,0,1
+1,Gantry7,Established Gantry,G7N,52.635908,1.384297,2,2,4,,Mosquito and fly?,4,638,557,1,0,16,1216,,30,1,1
+1,Gantry7,Established Gantry,G7S,52.635918,1.383348,0,0,4,,,6,68,9,2,1,11,97,,31,1,1
+1,Gantry7,Established Gantry,G7M,52.635801,1.384792,3,3,4,,2 flies 1 moth,,,,,,,,,32,,
+1,Random,Random,G7RN,52.636504,1.383702,0,0,,,,0,1,4,3,0,0,8,,33,0,1
+1,Random,Random,G7RS,52.636445,1.383004,2,1,,,flies,0,2,1,2,0,0,5,,34,0,1
+1,GreenBridge,Green Bridge,GBMS,52.693916,1.204407,0,0,5,,mothwalk south,1,571,699,3,2,0,1276,,35,1,1
+1,ASP1,Random,AP1N,52.695945,1.218042,0,0,0,,,17,52,35,0,7,0,111,,36,1,1
+1,ASP1,Random,AP1S,52.695506,1.217646,0,0,0,,,22,174,157,0,9,3,365,,37,1,1
+1,ASP2,Random,AP2N,52.680744,1.333235,0,0,1,,,3,59,8,5,18,0,93,,38,1,1
+1,ASP2,Random,AP2S,52.680061,1.333283,1,1,1,,fly? Small,6,129,12,6,24,0,177,,39,1,1
+1,ASP3,Random,AP3N,52.676722,1.352154,1,1,1,,bottle fly,4,35,67,45,10,1,162,,40,1,1
+1,ASP3,Random,AP3S,52.67559,1.352175,0,0,1,,,0,6,1,23,0,0,30,,41,0,1
+1,ASP4,Random,AP4N,52.662506,1.369018,0,0,0,,,0,38,3,5,2,4,52,,42,0,1
+1,ASP4,Random,AP4S,52.662753,1.370199,0,0,0,,,0,59,76,3,6,1,145,,43,0,1
+1,ASP4,Random,AP4M,52.662632,1.368354,0,0,0,,(+cinnabiar moth in first mothwalk),,,,,,,,,44,,
+1,Random,Random,G1RN,52.694216,1.177193,0,0,,,,0,2,2,5,8,0,17,,45,0,1
+1,Ringland,Ringland and Weston Longville,Ring5,52.68757,1.157554,2,2,,,,0,,,,,,26,,46,0,1
+1,Ringland,Ringland and Weston Longville,Ring6,52.687008,1.149722,0,0,,,,2,,,,,,130,,47,1,1
+1,Golf,Ringland and Weston Longville,golf1,52.711356,1.134358,1,1,3,,,213,,,,,,332,,48,1,1
+1,Golf,Ringland and Weston Longville,golf2,52.708792,1.128677,2,2,3,,,6,,,,,,87,,49,1,1
+1,Golf,Ringland and Weston Longville,golf3,52.710509,1.125204,0,0,3,,,18,,,,,,251,,50,1,1
+1,Golf,Ringland and Weston Longville,golf4,52.710723,1.119885,0,0,3,,,,,,,,,,,51,,
+1,Dino,Ringland and Weston Longville,Dino1,52.71033,1.11766,1,1,5,,,20,,,10,,,1072,,52,1,1
+1,Dino,Ringland and Weston Longville,Dino2,52.71127,1.11961,1,1,5,,,11,,,,,,241,,53,1,1
+1,Dino,Ringland and Weston Longville,Dino3,52.71328,1.11946,0,0,5,,,3,,,,,,77,,54,1,1
+1,Dino,Ringland and Weston Longville,Dino4,52.71185,1.11753,0,0,5,,,17,,,,,,530,,55,1,1
+1,Dino,Ringland and Weston Longville,Dino5,52.71423,1.11643,1,1,5,,,127,,,,,,375,,56,1,1
+1,Dino,Ringland and Weston Longville,Dino6,52.71334,1.11611,2,1,5,,,17,,,,,,176,,57,1,1
+1,Dino,Ringland and Weston Longville,Dino7,52.71218,1.11576,1,1,5,,,44,,,,,,309,,58,1,1
+1,Dino,Ringland and Weston Longville,Dino8,52.71135,1.11563,2,2,5,,,132,,,,,,1215,,59,1,1
+1,Ringland,Ringland and Weston Longville,Ring1,52.690784,1.14886,2,1,,,Spiders,94,,,,,,378,,60,1,1
+1,Ringland,Ringland and Weston Longville,Ring2,52.69381,1.146023,0,0,,,,2,,,,,,75,,61,1,1
+1,Ringland,Ringland and Weston Longville,Ring3,52.693767,1.156438,2,2,,,tick and moth,9,,,,,,311,,62,1,1
+1,,Ringland and Weston Longville,C11 -,52.7018,1.158556,5,4,,,,18,,,,,,1289,,63,1,1
+1,,Ringland and Weston Longville,C12 -,52.697663,1.165986,1,1,,,,2,,,,,,861,,64,1,1
+1,,Random,R1 -,52.682882,1.136875,2,2,,,,2,,,,,,377,,65,1,1
+1,,Random,R2 -,52.693946,1.137877,0,0,,,,1,,,,,,27,,66,1,1
+1,,Random,R3 -,52.703701,1.133424,3,3,,,,4,,,,,,302,,67,1,1
+1,,Ringland and Weston Longville,R7 -,52.71242,1.136621,0,0,,,,2,,,,,,687,,68,1,1
+1,,Ringland and Weston Longville,R9 -,52.716754,1.11348,3,1,,,,9,,,,,,322,,69,1,1
+1,,Ringland and Weston Longville,R10 -,52.707104,1.121185,0,0,,,,8,,,,,,206,,70,1,1
+1,,Ringland and Weston Longville,R11 -,52.699463,1.161233,5,5,,,,0,,,,,,26,,71,0,1

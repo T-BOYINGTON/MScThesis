@@ -1,0 +1,454 @@
+---
+title: "Diss"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# script-specific libraries
+suppressPackageStartupMessages({
+  library(stringdist)
+  library(vegan)
+  library(mvabund)
+  library(ordinal)
+  library(ecoCopula)
+  library(corrplot)
+  library(ggrepel)
+  library(RColorBrewer)
+  library(tidygraph)
+  library(ggraph)
+  library(car)
+})
+
+# general-use packages
+suppressPackageStartupMessages({
+  library(tidyverse) # loads a bunch of packages (see below)
+  library(here)
+  library(fs)
+  library(glue)
+  library(readxl)
+  library(cowplot)
+  library(lubridate)
+  library(patchwork)
+  library(broom)
+  library(ggeffects)
+  library(viridis)
+  library(arsenal) # for tableby()
+  library(waldo) # for compare()
+  library(sjmisc) # for rotate_df()
+  library(envDocument)
+  library(inspectdf)
+  library(conflicted)
+  library(knitr)
+  library(beepr)
+  library(pivottabler)
+  library(furrr)
+  library(scales)
+  library(janitor)
+  library(tictoc)
+})
+
+conflict_prefer("mutate", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("summarise", "dplyr", quiet = TRUE)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("first", "dplyr", quiet = TRUE)
+conflict_prefer("here", "here", quiet = TRUE)
+conflict_prefer("separate", "tidyr", quiet = TRUE)
+conflict_prefer("unite", "tidyr", quiet = TRUE)
+conflict_prefer("trim", "sjmisc", quiet=TRUE)
+conflict_prefer("rescale", "scales", quiet=TRUE)
+#conflict_prefer("rescale", "discard", quiet=TRUE)
+conflict_prefer("intersect", "dplyr", quiet = TRUE)
+conflict_prefer("setdiff", "dplyr", quiet = TRUE) # w/out this, R crashes
+conflict_prefer("to_factor", "sjmisc", quiet = TRUE)
+conflict_prefer("trim", "glue", quiet = TRUE)
+#conflict_prefer("discard", "purrr", quiet = TRUE)
+
+# Real numbers, not scientific notation.
+options(scipen = 999)
+```
+
+```{r}
+getwd()
+mw <- read.csv('InsectData-Diss-100204382-0307SheetMW.csv')
+MainBats <- read.csv('figSheet1.csv') 
+
+
+Insect <- MainBats %>% select("Site_Name":"Species_P_Site") ## Information on Insects per Site
+```
+
+
+
+## The Following are Plots used within the Dissertation
+```{r}
+# Moth Walk Time
+head(mw)
+list(mw, 'Time')
+mw <- mw%>% 
+  filter(!is.na(MW_Total))
+time <-ggplot(aes(Time, MW_Total), data= mw, colour= "ï..Site_Name") +
+   geom_point()+
+  geom_boxplot() +   
+  labs(y = "Moth Abundance")+
+  labs(x = "Time Period of Moth Walk")+
+  labs(xsub = "(Starting at sunset and progressing in 45 minute increments)") +
+   theme_classic()
+  # geom_smooth(method = "lm", se = TRUE)+
+plot(time)
+
+
+
+
+```
+
+
+```{r}
+# Moth Walk and trap Indiv/Species
+
+startMW <- mw %>% filter (Time == "start")
+insMW <- (ggplot(aes(Total_Inv, MW_Total), data= startMW) +
+ geom_point(aes(shape=type))+
+   labs(x = "Insect Abundance")+
+  labs(y = "Moth Abundance")+
+  geom_smooth(method = "lm", color = "White", se = TRUE) +
+  theme_classic()+
+  theme(legend.position = "none"))+
+  
+  
+  (ggplot(aes(Species_P_Trap, MW_Total), data= startMW) +
+   geom_point(aes(shape=type))+
+  labs(x = "Insect Biodiversity")+
+  labs(y = "Moth Abundance")+
+ labs(shape = "Footpath Location")+
+  geom_smooth(method = "lm",color = "White", se = TRUE) +
+
+ theme_classic())+
+  theme(legend.position = "left")
+ 
+   
+plot(insMW)
+```
+
+
+```{r}
+# Moth Walk and Bats
+
+batMW <- ggplot(aes(Total_Bats, MW_Total), data= startMW) +
+  geom_point(aes(shape=type))+
+   theme_classic()+
+labs(x = "Total Bat Activity")+
+  labs(y = "Moth Abundance")+
+theme(legend.position = "none")&
+  ggplot(aes(Barb_passes, MW_Total), data= startMW) +
+  geom_point(aes(shape=type))+
+  labs(y = "Moth Abundance")+
+  labs(x = "Barbastelle Bat Activity")+
+   labs(shape = "Footpath Location")+
+ theme_classic()+
+theme(legend.position = "left")
+plot(batMW)
+
+```
+
+
+
+```{r}
+#inv/species per location
+foot <- MainBats %>%  filter (type!= "AP")
+Invplot <- ggplot(aes(type, Total_Inv), data= foot) +
+  geom_point()+
+  geom_boxplot()+
+    labs(y = "Insect Abundance")+
+    labs(x = "Footpath Location")+
+  geom_smooth(method = "lm", se = TRUE) + theme_classic()+
+ theme(axis.text.x = element_text(angle = 20, hjust = 1)) &
+  ggplot(aes(type, Species_P_Trap), data= foot) +
+  geom_point()+
+  geom_boxplot()+
+    labs(y = "Insect Biodiversity")+
+    labs(x = "Footpath Location")+
+  geom_smooth(method = "lm", se = TRUE) + theme_classic()+
+  theme(axis.text.x = element_text(angle = 20, hjust = 1)) 
+plot(Invplot)
+
+
+
+```
+
+
+```{r}
+batins <- ggplot(aes(Total_Inv, Total_Bats), data= MainBats) +
+  geom_point(aes(shape=type))+
+      labs(y = "Total Bat Activity")+
+    labs(x = "Insect Abundance")+
+ theme_classic()+
+ theme(legend.position = "none")&
+  ggplot(aes(Species_P_Trap, Total_Bats), data= MainBats) +
+  geom_point(aes(shape=type))+
+        labs(y = "Total Bat Activity")+
+    labs(x = "Insect Biodiversity")+
+  labs(shape = "Footpath Location")+
+  theme_classic()+
+ theme(legend.position = "left")
+  
+plot(batins)
+```
+
+
+```{r}
+barbins <- ggplot(aes(Total_Inv, Barb_passes), data= MainBats) +
+  geom_point(aes(shape=type))+
+  labs(x = "Insect Abundance")+
+    labs(y = "Barbastelle Bat Activity")+
+ theme_classic()+
+ theme(legend.position = "none")&
+  ggplot(aes(Species_P_Trap, Barb_passes), data= MainBats) +
+  geom_point(aes(shape=type))+
+    labs(x = "Insect Biodiversity")+
+    labs(y = "Barbastelle Bat Activity")+
+  labs(shape = "Footpath Location")+
+  theme_classic()+
+  theme(legend.position = "left")
+
+plot(barbins)
+```
+
+
+
+```{r}
+batbox <- ggplot(aes(type, Total_Bats), data= foot) +
+  geom_boxplot()+
+  geom_point()+
+     labs(y = "Total Bat Activity")+
+    labs(x = "Footpath Location")+
+  geom_smooth(method = "lm", se = TRUE)+ theme_classic()+
+  theme(axis.text.x = element_text(angle = 20, hjust = 1)) &
+         ggplot(aes(type, Barb_passes), data= foot) +
+  geom_boxplot()+
+  geom_point()+
+       labs(y = "Barbastelle Bat Activity")+
+    labs(x = "Footpath Location")+
+  geom_smooth(method = "lm", se = TRUE)+ theme_classic()+
+  theme(axis.text.x = element_text(angle = 20, hjust = 1)) 
+
+plot(batbox)
+
+
+```
+
+```{r}
+MW <- mw %>%  filter (!is.na(MW_Total))
+mwbox <- ggplot(aes(type, MW_Total), data= MW) +
+  geom_boxplot()+
+  geom_point()+
+     labs(x = "Footpath Location")+
+    labs(y = "Moth Abundance")+
+  geom_smooth(method = "lm", se = TRUE)+            # Rotate axis labels
+theme_classic() +
+theme(axis.text.x = element_text(angle = 20, hjust = 1))
+
+plot(mwbox+mwbox)
+
+```
+
+```{r}
+moth <- mwbox+(ggplot(aes(Species_P_Trap, MW_Total), data= startMW) +
+   geom_point(aes(shape=type))+
+  labs(x = "Insect Biodiversity")+
+  labs(y = "Moth Abundance")+
+ labs(shape = "Footpath Location")+
+  geom_smooth(method = "lm",color = "White", se = TRUE) +
+
+ theme_classic())+
+  theme(legend.position = "left")
+
+plot(moth)
+```
+
+
+
+##These next graphs are preliminary for the GLM of habitat data performed in SPSS (See either Dissertation OR SPSS Output sheets for further information)
+
+```{r}
+
+habitat <- read.csv('HabitatDiss.csv')
+
+hab1 <- (ggplot(aes(Urban, BarbMean), data= habitat) +
+ geom_point()+
+   labs(x = "Urban?")+
+  labs(y = "Mean Barb Activity")+
+  geom_smooth(method = "lm", color = "White", se = TRUE) +
+  theme_classic()+
+  theme(legend.position = "none"))+
+  (ggplot(aes(Urban, BatMean), data= habitat) +
+ geom_point()+
+   labs(x = "Urban?")+
+  labs(y = "Mean Total Bat Activity")+
+  geom_smooth(method = "lm", color = "White", se = TRUE) +
+  theme_classic()+
+  theme(legend.position = "none"))
+
+
+plot(hab1)
+```
+
+```{r}
+hab2 <- (ggplot(aes(Water, BarbMean), data= habitat) +
+ geom_point()+
+   labs(x = "Water")+
+  labs(y = "Mean Barb Activity")+
+  geom_smooth(method = "lm", color = "White", se = TRUE) +
+  theme_classic()+
+  theme(legend.position = "none"))+
+  (ggplot(aes(Water, BatMean), data= habitat) +
+ geom_point()+
+   labs(x = "Water")+
+  labs(y = "Mean Total Bat Activity")+
+  geom_smooth(method = "lm", color = "White", se = TRUE) +
+  theme_classic()+
+  theme(legend.position = "none"))
+
+plot(hab2)
+```
+```{r}
+hab3 <- (ggplot(aes(Woodland, BarbMean), data= habitat) +
+ geom_point()+
+   labs(x = "Woodland")+
+  labs(y = "Mean Barb Activity")+
+  geom_smooth(method = "lm", color = "White", se = TRUE) +
+  theme_classic()+
+  theme(legend.position = "none"))+
+  (ggplot(aes(Woodland, BatMean), data= habitat) +
+ geom_point()+
+   labs(x = "Woodland")+
+  labs(y = "Mean Total Bat Activity")+
+  geom_smooth(method = "lm", color = "White", se = TRUE) +
+  theme_classic()+
+  theme(legend.position = "none"))
+
+plot(hab3)
+```
+
+```{r}
+x<-habitat
+model1 <- glm(BatMean ~ Urban + Woodland + Water, family = "gaussian", data=habitat)
+summary(model1)
+plot(model1)
+```
+
+```{r}
+hab4 <- (ggplot(aes(2.99+((7.97*(10^-5))*Water)+((5.32*(10^-5))*Woodland), BarbMean), data= habitat) +
+ geom_point()+
+   labs(x = "Woodland*Water")+
+  labs(y = "Barbastelle Activity")+
+  geom_smooth(method = "glm", color = "White", se = TRUE) +
+  theme_classic()+
+  theme(legend.position = "none"))+
+  (ggplot(aes(Woodland+Urban, BatMean), data= habitat) +
+ geom_point()+
+   labs(x = "Woodland+Urban")+
+  labs(y = "Mean Total Bat Activity")+
+  geom_smooth(method = "glm", color = "White", se = TRUE) +
+  theme_classic()+
+  theme(legend.position = "none"))
+
+plot(hab4)
+```
+
+```{r}
+##Binary
+
+Barbpass<-habitat %>% 
+ mutate(
+    Status_binary = case_when(
+      BarbTotal > 0 ~ 1,
+      BarbTotal == 0 ~ 0,
+    ))
+Barbpass<-Barbpass %>% 
+      filter(!is.na(Status_binary))
+         
+Binary_model <- glm(Status_binary ~ model, family = binomial, data = Barbpass)
+summary(Binary_model)
+modelpred <- ggpredict(Binary_model, terms = c("model[all]"))
+Binary.HSI <-
+  (ggplot() + # diff geoms use diff datasets
+    geom_jitter(data = Barbpass, aes(x = model, y = Status_binary), width = .1,
+    height = .1, size = 1, shape = 21) +
+    labs(x = "model value", y = "Probability of Barbastelle presence") +
+    theme_cowplot() + # or theme_bw() if you don't have the cowplot package
+    geom_line(data = modelpred, aes(x = x, y = predicted)) +
+    geom_ribbon(data = modelpred, aes(x = x, ymin = conf.low, ymax = conf.high,
+        group = group), alpha=0.05, fill = "green") +
+    # scale_fill_manual(values = colorvec) +
+    labs(fill = "Clean"))
+
+plot(Binary.HSI)
+```
+
+```{r}
+habI1 <- (ggplot(aes(Urban, meanInv), data= habitat) +
+ geom_point()+
+   labs(x = "Urban?")+
+  labs(y = "Mean Invertebrate Activity")+
+  geom_smooth(method = "lm", color = "White", se = TRUE) +
+  theme_classic()+
+  theme(legend.position = "none"))+
+  (ggplot(aes(Urban, MeanSpp), data= habitat) +
+ geom_point()+
+   labs(x = "Urban?")+
+  labs(y = "Mean Biodiversity")+
+  geom_smooth(method = "lm", color = "White", se = TRUE) +
+  theme_classic()+
+  theme(legend.position = "none"))
+
+
+plot(habI1)
+```
+
+```{r}
+habI2 <- (ggplot(aes(Water, meanInv), data= habitat) +
+ geom_point()+
+   labs(x = "Water")+
+  labs(y = "Mean Invertebrate Activity")+
+  geom_smooth(method = "lm", color = "White", se = TRUE) +
+  theme_classic()+
+  theme(legend.position = "none"))+
+  (ggplot(aes(Water, MeanSpp), data= habitat) +
+ geom_point()+
+   labs(x = "Water")+
+  labs(y = "Mean Biodiversity")+
+  geom_smooth(method = "lm", color = "White", se = TRUE) +
+  theme_classic()+
+  theme(legend.position = "none"))
+
+
+plot(habI2)
+```
+
+```{r}
+habI3 <- (ggplot(aes(Woodland, meanInv), data= habitat) +
+ geom_point()+
+   labs(x = "Woodland")+
+  labs(y = "Mean Invertebrate Activity")+
+  geom_smooth(method = "lm", color = "White", se = TRUE) +
+  theme_classic()+
+  theme(legend.position = "none"))+
+  (ggplot(aes(Woodland, MeanSpp), data= habitat) +
+ geom_point()+
+   labs(x = "Woodland")+
+  labs(y = "Mean Biodiversity")+
+  geom_smooth(method = "lm", color = "White", se = TRUE) +
+  theme_classic()+
+  theme(legend.position = "none"))
+
+
+plot(habI3)
+```
+
+```{r}
+moda<- habitat %>% filter(model <= 10)
+modb<- habitat %>% filter(model <= 20)
+modb<- modb %>% filter(model > 10)
+modc<- habitat %>% filter (model >20)
+```
+
